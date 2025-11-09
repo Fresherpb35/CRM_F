@@ -2,19 +2,18 @@
 
 import { ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function NewTaskPage() {
-  const router = useRouter();
   const [formData, setFormData] = useState({
     title: '',
-    time: '2:00 PM',
+    time: '10:00 AM',
     day: 'Friday',
     priority: 'MEDIUM',
     clientName: '',
     age: '',
     gender: '',
     email: '',
+    phone: '',
     serviceRequired: '',
     details: ''
   });
@@ -27,101 +26,112 @@ export default function NewTaskPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTaskId = Date.now();
-    router.push(`/dashboard/tasks/${newTaskId}`);
+    console.log('Task Created:', formData);
+    // Redirect to task info page
+    window.location.href = `/dashboard/tasks/${newTaskId}`;
+  };
+
+  const handleBack = () => {
+    // Redirect back to tasks page
+    window.location.href = '/dashboard/tasks';
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-50">
       
       {/* Header */}
-      <div className="sticky top-0 z-50 g-gradient-to-r from-purple-900 to-indigo-900 p-4 flex items-center gap-4 shadow-md">
+      <div className="sticky top-0 z-50 bg-linear-to-r from-purple-900 to-purple-800 px-4 py-4 flex items-center gap-3 shadow-lg">
         <button 
-          onClick={() => router.back()}
+          onClick={handleBack}
           className="text-white hover:bg-white/10 p-2 rounded-lg transition"
         >
-          <ArrowLeft size={24} />
+          <ArrowLeft size={20} />
         </button>
-        <h1 className="text-white text-lg md:text-xl font-semibold">Create New Task</h1>
+        <h1 className="text-white text-xl font-bold tracking-wide">NEW TASK</h1>
       </div>
 
       {/* Form Container */}
-      <div className="max-w-2xl mx-auto p-4">
-        <div className="bg-white rounded-2xl shadow-sm p-6 space-y-6">
+      <div className="max-w-2xl mx-auto p-4 md:p-6">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
 
-          {/* Task Title */}
-          <input
-            type="text"
-            name="title"
-            placeholder="Task Title"
-            value={formData.title}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
-          />
-
-          {/* Time and Day */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-600"
-            />
-            <input
-              type="text"
-              name="day"
-              value={formData.day}
-              onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-600"
-            />
-          </div>
-
-          {/* Priority */}
+          {/* Task Details Section */}
           <div>
-            <p className="text-sm font-semibold text-gray-700 mb-3">Priority:</p>
-            <div className="flex flex-wrap gap-6">
-              {['HIGH', 'MEDIUM', 'LOW'].map(p => (
-                <label key={p} className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="priority"
-                    value={p}
-                    checked={formData.priority === p}
-                    onChange={handleChange}
-                    className="w-5 h-5"
-                  />
-                  <span className={`text-sm font-medium ${
-                    p === 'HIGH' ? 'text-red-600' : p === 'MEDIUM' ? 'text-green-600' : 'text-gray-600'
-                  }`}>
-                    {p}
-                  </span>
-                </label>
-              ))}
+            <h2 className="text-base font-bold text-gray-900 mb-4">Task Details</h2>
+            
+            <input
+              type="text"
+              name="title"
+              placeholder="Enter task title"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent mb-3"
+            />
+
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <input
+                type="text"
+                name="time"
+                value={formData.time}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+              <input
+                type="text"
+                name="day"
+                value={formData.day}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Priority */}
+            <div className="mb-2">
+              <p className="text-sm font-semibold text-gray-700 mb-3">Priority:</p>
+              <div className="flex gap-8">
+                {[
+                  { value: 'HIGH', label: 'HIGH', color: 'text-red-500' },
+                  { value: 'MEDIUM', label: 'MEDIUM', color: 'text-green-500' },
+                  { value: 'LOW', label: 'LOW', color: 'text-blue-500' }
+                ].map(p => (
+                  <label key={p.value} className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="priority"
+                      value={p.value}
+                      checked={formData.priority === p.value}
+                      onChange={handleChange}
+                      className="w-5 h-5 text-purple-600 focus:ring-purple-500"
+                    />
+                    <span className={`text-sm font-semibold ${p.color}`}>
+                      {p.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Client Information */}
+          {/* Client Information Section */}
           <div>
-            <p className="text-sm font-semibold text-gray-700 mb-3">Client Information:</p>
+            <h2 className="text-base font-bold text-gray-900 mb-4">Client Information</h2>
 
-            <div className="space-y-4">
-              <input
-                type="text"
-                name="clientName"
-                placeholder="Client Name"
-                value={formData.clientName}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <input
+                  type="text"
+                  name="clientName"
+                  placeholder="Enter Name"
+                  value={formData.clientName}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
                 <input
                   type="text"
                   name="age"
                   placeholder="Age"
                   value={formData.age}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 />
                 <input
                   type="text"
@@ -129,18 +139,28 @@ export default function NewTaskPage() {
                   placeholder="Gender"
                   value={formData.gender}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 />
               </div>
 
-              <input
-                type="email"
-                name="email"
-                placeholder="Client Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
-              />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Enter Phone No."
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+              </div>
 
               <input
                 type="text"
@@ -148,25 +168,28 @@ export default function NewTaskPage() {
                 placeholder="Service Required"
                 value={formData.serviceRequired}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600"
+                className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
               />
             </div>
           </div>
 
-          {/* Details */}
-          <textarea
-            name="details"
-            placeholder="Task Details"
-            value={formData.details}
-            onChange={handleChange}
-            rows={4}
-            className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-xl placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none"
-          />
+          {/* Details Section */}
+          <div>
+            <h2 className="text-base font-bold text-gray-900 mb-4">Details</h2>
+            <textarea
+              name="details"
+              placeholder="Enter detailed information"
+              value={formData.details}
+              onChange={handleChange}
+              rows={5}
+              className="w-full px-4 py-3 border border-gray-300 bg-white text-gray-800 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+            />
+          </div>
 
           {/* Submit Button */}
           <button
             onClick={handleSubmit}
-            className="w-full g-gradient-to-r from-purple-900 to-indigo-900 text-white py-4 rounded-xl font-semibold hover:opacity-90 transition shadow-lg"
+            className="w-full bg-linear-to-r from-purple-900 to-purple-800 text-white py-3.5 rounded-lg font-semibold hover:from-purple-800 hover:to-purple-700 transition shadow-lg text-base"
           >
             Create Task
           </button>
