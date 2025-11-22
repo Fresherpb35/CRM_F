@@ -2,6 +2,7 @@
 
 import { ArrowLeft, Mail, User, Phone } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function TaskDetailPage() {
   // Mock task ID - in real app this would come from URL params
@@ -31,38 +32,33 @@ export default function TaskDetailPage() {
     nextSteps: `Update the call outcome (interested/not interested/unreachable). Add call notes and document any discussion regarding loan eligibility.`
   });
 
-  const handleBack = () => {
-    // Redirect back to tasks page
-    window.location.href = '/dashboard/tasks';
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-linear-to-r from-purple-900 to-purple-800 px-4 py-4 flex items-center gap-3 shadow-lg">
-        <button 
-          onClick={handleBack}
+      <div className="sticky top-0 z-50 bg-linear-to-r from-purple-900 to-purple-800 px-4 lg:px-6 py-4 lg:py-5 flex items-center gap-3 shadow-lg">
+        <Link 
+          href="/dashboard/tasks"
           className="text-white hover:bg-white/10 p-2 rounded-lg transition"
         >
-          <ArrowLeft size={20} />
-        </button>
-        <h1 className="text-white text-lg md:text-xl font-bold">{taskData.title}</h1>
+          <ArrowLeft size={20} className="lg:w-6 lg:h-6" />
+        </Link>
+        <h1 className="text-white text-lg md:text-xl lg:text-2xl font-bold">{taskData.title}</h1>
       </div>
 
       {/* Content */}
-      <div className="max-w-3xl mx-auto p-4 md:p-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 md:p-6 space-y-6">
+      <div className="max-w-5xl mx-auto p-4 md:p-6 lg:p-8 xl:p-10">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 md:p-6 lg:p-8 xl:p-10 space-y-6 lg:space-y-8">
 
           {/* Task Details */}
-          <div className="space-y-2.5">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-gray-700 text-sm">Time:</span>
-              <span className="text-gray-900 text-sm">{taskData.time}</span>
+              <span className="font-semibold text-gray-700 text-sm lg:text-base">Time:</span>
+              <span className="text-gray-900 text-sm lg:text-base">{taskData.time}</span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-gray-700 text-sm">Priority:</span>
-              <span className={`font-bold text-sm ${
+              <span className="font-semibold text-gray-700 text-sm lg:text-base">Priority:</span>
+              <span className={`font-bold text-sm lg:text-base ${
                 taskData.priority === 'HIGH' ? 'text-red-500' : 
                 taskData.priority === 'MEDIUM' ? 'text-green-500' : 
                 'text-blue-500'
@@ -71,8 +67,8 @@ export default function TaskDetailPage() {
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-gray-700 text-sm">Assigned to:</span>
-              <span className="text-gray-900 text-sm">{taskData.assignedTo}</span>
+              <span className="font-semibold text-gray-700 text-sm lg:text-base">Assigned to:</span>
+              <span className="text-gray-900 text-sm lg:text-base">{taskData.assignedTo}</span>
             </div>
           </div>
 
@@ -80,23 +76,23 @@ export default function TaskDetailPage() {
 
           {/* Client Information */}
           <div>
-            <h3 className="text-base font-bold text-gray-900 mb-4">Client Information</h3>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <User size={18} className="text-gray-500 shrink-0" />
+            <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-4 lg:mb-5">Client Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              <div className="flex items-center gap-3 lg:gap-4">
+                <User size={18} className="text-gray-500 shrink-0 lg:w-5 lg:h-5" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900">{taskData.clientInfo.name}</p>
-                  <p className="text-xs text-gray-600">{taskData.clientInfo.age} ({taskData.clientInfo.gender})</p>
+                  <p className="text-sm lg:text-base font-semibold text-gray-900">{taskData.clientInfo.name}</p>
+                  <p className="text-xs lg:text-sm text-gray-600">{taskData.clientInfo.age} ({taskData.clientInfo.gender})</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail size={18} className="text-gray-500 shrink-0" />
-                <span className="text-sm text-gray-700">{taskData.clientInfo.email}</span>
+              <div className="flex items-center gap-3 lg:gap-4">
+                <Mail size={18} className="text-gray-500 shrink-0 lg:w-5 lg:h-5" />
+                <span className="text-sm lg:text-base text-gray-700 break-all">{taskData.clientInfo.email}</span>
               </div>
               {taskData.clientInfo.phone && (
-                <div className="flex items-center gap-3">
-                  <Phone size={18} className="text-gray-500 shrink-0" />
-                  <span className="text-sm text-gray-700">{taskData.clientInfo.phone}</span>
+                <div className="flex items-center gap-3 lg:gap-4 md:col-span-2 lg:col-span-1">
+                  <Phone size={18} className="text-gray-500 shrink-0 lg:w-5 lg:h-5" />
+                  <span className="text-sm lg:text-base text-gray-700">{taskData.clientInfo.phone}</span>
                 </div>
               )}
             </div>
@@ -107,8 +103,8 @@ export default function TaskDetailPage() {
           {/* Service Required */}
           <div>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="font-semibold text-gray-700 text-sm">Service Enquired:</span>
-              <span className="text-gray-900 text-sm font-medium">{taskData.serviceRequired}</span>
+              <span className="font-semibold text-gray-700 text-sm lg:text-base">Service Enquired:</span>
+              <span className="text-gray-900 text-sm lg:text-base font-medium">{taskData.serviceRequired}</span>
             </div>
           </div>
 
@@ -116,20 +112,20 @@ export default function TaskDetailPage() {
 
           {/* Details */}
           <div>
-            <h3 className="text-base font-bold text-gray-900 mb-3">Details</h3>
-            <p className="text-sm text-gray-700 leading-relaxed">{taskData.details}</p>
+            <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 lg:mb-4">Details</h3>
+            <p className="text-sm lg:text-base text-gray-700 leading-relaxed lg:leading-relaxed">{taskData.details}</p>
           </div>
 
           <div className="border-t border-gray-200"></div>
 
           {/* Objectives of Follow-up */}
           <div>
-            <h3 className="text-base font-bold text-gray-900 mb-3">Objectives of Follow-up</h3>
-            <ul className="space-y-2.5">
+            <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 lg:mb-4">Objectives of Follow-up</h3>
+            <ul className="space-y-2.5 lg:space-y-3">
               {taskData.objectives.map((objective, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="text-purple-600 font-bold mt-0.5 shrink-0">•</span>
-                  <span className="text-sm text-gray-700 leading-relaxed">{objective}</span>
+                <li key={index} className="flex items-start gap-3 lg:gap-4">
+                  <span className="text-purple-600 font-bold mt-0.5 shrink-0 text-lg">•</span>
+                  <span className="text-sm lg:text-base text-gray-700 leading-relaxed">{objective}</span>
                 </li>
               ))}
             </ul>
@@ -139,11 +135,9 @@ export default function TaskDetailPage() {
 
           {/* Next Steps */}
           <div>
-            <h3 className="text-base font-bold text-gray-900 mb-3">Next Steps</h3>
-            <p className="text-sm text-gray-700 leading-relaxed">{taskData.nextSteps}</p>
+            <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-3 lg:mb-4">Next Steps</h3>
+            <p className="text-sm lg:text-base text-gray-700 leading-relaxed lg:leading-relaxed">{taskData.nextSteps}</p>
           </div>
-
-         
 
         </div>
       </div>

@@ -211,7 +211,7 @@ export default function EmployeeInsightsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-indigo-900 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 font-semibold">Loading employee data...</p>
@@ -222,7 +222,7 @@ export default function EmployeeInsightsPage() {
 
   if (!employeeData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-purple-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-xl text-gray-800 font-semibold mb-4">Employee not found</p>
           <button 
@@ -237,7 +237,7 @@ export default function EmployeeInsightsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-linear-to-br from-purple-50 via-blue-50 to-purple-50">
       {/* Header */}
       <header className="bg-indigo-900 text-white shadow-lg sticky top-0 z-30 border-b-4 border-cyan-400">
         <div className="px-4 py-4 flex items-center gap-4">
@@ -257,7 +257,7 @@ export default function EmployeeInsightsPage() {
             {/* Left Column - Profile & Work Info */}
             <div className="lg:col-span-2 space-y-6">
               {/* Personal Information */}
-              <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
+              <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
                 <div className="flex flex-col sm:flex-row gap-6">
                   {/* Profile Photo */}
                   <div className="flex justify-center sm:justify-start shrink-0">
@@ -306,7 +306,7 @@ export default function EmployeeInsightsPage() {
               {/* Work Information & Analytics */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Work Information */}
-                <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
+                <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
                   <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 border-b-2 border-indigo-300 pb-2">
                     Work Information
                   </h2>
@@ -327,7 +327,7 @@ export default function EmployeeInsightsPage() {
                 </div>
 
                 {/* Analytics */}
-                <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl shadow-lg p-6 border-2 border-blue-200">
+                <div className="bg-linear-to-br from-blue-100 to-purple-100 rounded-2xl shadow-lg p-6 border-2 border-blue-200">
                   <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 border-b-2 border-blue-300 pb-2">
                     ANALYTICS
                   </h2>
@@ -353,7 +353,7 @@ export default function EmployeeInsightsPage() {
               </div>
 
               {/* Remarks */}
-              <div className="bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
+              <div className="bg-linear-to-br from-purple-100 to-blue-100 rounded-2xl shadow-lg p-6 border-2 border-indigo-200">
                 <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 border-b-2 border-indigo-300 pb-2">
                   Remarks
                 </h2>

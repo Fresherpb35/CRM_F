@@ -1,25 +1,12 @@
 "use client"
 import React, { useState } from 'react';
-import { Menu, X, Clock, TrendingUp, CheckCircle, Calendar, MessageSquare, ChevronRight } from 'lucide-react';
+import { Menu, Clock, TrendingUp, CheckCircle, Calendar, MessageSquare, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Sidebar from '@/components/ui/sidebar';
 
 export default function Dashboard() {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-   const handleProfileClick = () => {
-    router.push('/dashboard/profile');
-  };
-
-  const menuItems = [
-    { label: 'Dashboard', href: '/dashboard', active: true },
-    { label: 'Leads & Pipelines', href: '/dashboard/lead-pipelines', active: false },
-    { label: 'Tasks', href: '/dashboard/tasks', active: false },
-    { label: 'Clients', href: '/dashboard/clients', active: false },
-    { label: 'Accounting Reports', href: '/dashboard/accounting-reports', active: false },
-    { label: 'HR Analytics', href: '/dashboard/hr-analysis', active: false },
-      { label: 'Chat Support', href: '/dashboard/Chat-Support', active: false }
-  ];
 
   const statsCards = [
     { 
@@ -97,59 +84,12 @@ export default function Dashboard() {
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
-      {/* Overlay for mobile */}
-      {sidebarOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-linear-to-b from-purple-900 via-purple-800 to-purple-900 transform lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out shadow-2xl lg:relative overflow-y-auto scrollbar-hide`}>
-        <div className="flex items-center justify-between p-4 lg:p-6">
-          <div className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition" onClick={handleProfileClick}>
-            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
-              <img src="/images/user.png" alt="User" className="w-full h-full object-cover" />
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">Welcome, User!</p>
-            </div>
-          </div>
-          <button 
-            onClick={() => setSidebarOpen(false)} 
-            className="text-white hover:bg-purple-800 p-2 rounded-lg transition lg:hidden"
-          >
-            <X size={20} />
-          </button>
-        </div>
-        
-        <nav className="py-2 pb-20">
-          {menuItems.map((item, index) => (
-            <a 
-              key={index} 
-              href={item.href}
-              className={`flex items-center px-6 py-3.5 transition-all ${
-                item.active
-                  ? 'text-white bg-purple-700/50 border-l-4 border-white font-medium'
-                  : 'text-white/70 hover:text-white hover:bg-purple-700/30 border-l-4 border-transparent'
-              }`}
-            >
-              <span className="text-sm">{item.label}</span>
-            </a>
-          ))}
-          
-          <div className="absolute bottom-4 left-0 right-0 px-6">
-            <a href="#" className="flex items-center gap-2 text-white/70 hover:text-white transition-all">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <span className="text-sm">Settings</span>
-            </a>
-          </div>
-        </nav>
-      </div>
+      {/* Sidebar Component */}
+      <Sidebar 
+        sidebarOpen={sidebarOpen} 
+        setSidebarOpen={setSidebarOpen}
+        activeMenuItem="Dashboard"
+      />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col h-screen overflow-hidden">

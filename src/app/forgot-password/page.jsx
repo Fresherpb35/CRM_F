@@ -115,15 +115,15 @@ const OTPLoginPage = () => {
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-25"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/images/bg-image.jpg)',
-          filter: 'brightness(0.5)'
+          filter: 'brightness(0.4)'
         }}
       />
       
-      {/* Overlay for better readability */}
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Bluish Overlay */}
+      <div className="absolute inset-0 bg-linear-to-br from-blue-900/60 via-blue-800/50 to-indigo-900/60" />
 
       <div className="w-full max-w-md relative z-10">
         <div className="">
@@ -192,11 +192,10 @@ const OTPLoginPage = () => {
 
           {/* Sign Up Link */}
           <p className="text-center text-white text-sm">
-            New here?{' '}
-            <Button 
+            New here? <Button 
               onClick={handleSignUp}
               variant="link"
-              className="underline hover:text-purple-300 text-white p-0 h-auto text-sm"
+              className="underline hover:text-purple-300 text-white p-0 h-auto text-sm ml-1"
               type="button"
             >
               Sign up now!
